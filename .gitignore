@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+
+# Clé privée de signature : ne jamais la versionner
+*.pem
+.claude/
+.DS_Store

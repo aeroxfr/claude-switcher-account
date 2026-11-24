@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aperçu — Claude Switcher</title>
+    <link rel="stylesheet" href="../src/renderer/styles.css" />
+  </head>
+  <body>
+    <!-- Aperçu de l'interface dans un navigateur, avec une API simulée. ?os=win32 pour Windows. -->
+    <header class="titlebar"></header>
+    <main><div id="banners"></div><ul id="accounts" class="accounts"></ul><p class="hint" id="hint"></p></main>
+    <div id="modal-root"></div>
+    <div id="toasts" class="toasts" aria-live="polite"></div>
+    <script src="mock-api.js"></script>
+    <script>
+      // Reprend l'en-tête réel de index.html.
+      fetch('../src/renderer/index.html').then((r) => r.text()).then((t) => {
+        const doc = new DOMParser().parseFromString(t, 'text/html');
+        document.querySelector('header.titlebar').replaceWith(doc.querySelector('header.titlebar'));
+        const s = document.createElement('script');
+        s.src = '../src/renderer/app.js';
+        document.body.append(s);
+      });
+    </script>
+  </body>
+</html>

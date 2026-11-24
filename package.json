@@ -1,0 +1,93 @@
+{
+  "name": "claude-switcher",
+  "productName": "Claude Switcher",
+  "version": "1.0.0",
+  "description": "Multi-account manager for Claude Desktop (macOS & Windows): one isolated profile per account, switch in one click.",
+  "updateRepository": "aeroxfr/claude-switcher-account",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aeroxfr/claude-switcher-account.git"
+  },
+  "homepage": "https://github.com/aeroxfr/claude-switcher-account#readme",
+  "main": "src/main.js",
+  "private": true,
+  "author": "aeroxfr",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test \"test/*.test.js\"",
+    "icons": "node scripts/make-icons.js",
+    "dist:mac": "electron-builder --mac",
+    "dist:win": "electron-builder --win",
+    "release": "node scripts/release.js",
+    "release:keygen": "node scripts/update-keygen.js"
+  },
+  "devDependencies": {
+    "electron": "45.3.3",
+    "electron-builder": "26.18.1"
+  },
+  "build": {
+    "appId": "local.claude-switcher",
+    "productName": "Claude Switcher",
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "arm64",
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.png",
+      "category": "public.app-category.productivity",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "artifactName": "Claude-Switcher-${version}-mac-${arch}.${ext}"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "Claude Switcher",
+      "artifactName": "Claude-Switcher-Setup-${version}.${ext}"
+    },
+    "publish": null,
+    "portable": {
+      "artifactName": "Claude-Switcher-Portable-${version}.${ext}"
+    }
+  }
+}
